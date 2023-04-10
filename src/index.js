@@ -66,10 +66,10 @@ function onInput() {
       for (const countryObj of dataObjArray) {
         list.insertAdjacentHTML(
           'beforeend',
-          `<li class="country-list__item" data-countryName="${countryObj.name.official}"
+          `<li class="country-list__item" data-countryname="${countryObj.name.official}"
           ><img class="country-list_img" src="
           ${countryObj.flags.svg}
-          " alt="${countryObj.flags.alt}" data-countryName="${countryObj.name.official}"
+          " alt="${countryObj.flags.alt}" data-countryname="${countryObj.name.official}"
            />${countryObj.name.official}</li>`
         );
       }
@@ -85,7 +85,7 @@ function onListClick(event) {
     return;
   }
 
-  const selectedCountry = event.target.dataset.countryName;
+  const selectedCountry = event.target.dataset.countryname;
   const index = retrievedCountries.findIndex(
     elem => elem.name.official === selectedCountry
   );
