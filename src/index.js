@@ -96,7 +96,7 @@ function displayCountry(countryObj) {
   info.innerHTML = `<img class="country-info__img" src="${
     countryObj.flags.svg
   }" alt="${countryObj.flags.alt}" />
-    <h2 class="country-info__name>${countryObj.name.official}</h2>
+    <h2 class="country-info__name">${countryObj.name.official}</h2>
     <ul class="country-info__other">
     <li class="country-info__other-item"><span class="country-info__other-title">
     Capital:</span>${countryObj.capital.join(', ')}</li>
