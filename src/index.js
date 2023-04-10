@@ -5,7 +5,7 @@ import { fetchCountries } from './fetchCountries';
 const debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
-let retrievedCountries = {};
+let retrievedCountries = [];
 
 const input = document.querySelector('#search-box');
 const list = document.querySelector('.country-list');
@@ -105,6 +105,6 @@ function displayCountry(countryObj) {
     <li class="country-info__other-item"><span class="country-info__other-title">
     Population:</span>${countryObj.population.toString()}</li>
     <li class="country-info__other-item"><span class="country-info__other-title">Languages:</span>
-    ${Array.prototype.join.call(countryObj.languages, ', ')}</li>
+    ${[...Object.values(countryObj.languages)].join(', ')}</li>
   </ul>`;
 }
