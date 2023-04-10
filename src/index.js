@@ -61,16 +61,16 @@ function onInput() {
         return;
       }
 
-      list.style.display = 'flex';
+      list.style.display = 'inline-block';
 
       for (const countryObj of dataObjArray) {
         list.insertAdjacentHTML(
           'beforeend',
           `<li class="country-list__item" data-countryname="${countryObj.name.official}"
-          ><img class="country-list_img" src="
+          ><img class="country-list__img" src="
           ${countryObj.flags.svg}
           " alt="${countryObj.flags.alt}" data-countryname="${countryObj.name.official}"
-           />${countryObj.name.official}</li>`
+           width="100" />${countryObj.name.official}</li>`
         );
       }
       retrievedCountries = [...dataObjArray];
@@ -81,7 +81,7 @@ function onInput() {
 }
 
 function onListClick(event) {
-  if (event.target.nodeName !== 'LI' || event.target.nodeName !== 'IMG') {
+  if (!(event.target.nodeName === 'LI' || event.target.nodeName === 'IMG')) {
     return;
   }
 
@@ -101,8 +101,24 @@ function displayCountry(countryObj) {
     <li class="country-info__other-item"><span class="country-info__other-title">
     Capital:</span>${countryObj.capital.join(', ')}</li>
     <li class="country-info__other-item"><span class="country-info__other-title">
-    Population:</span>${countryObj.population.toString()}</li>
+    Population:</span>${formatPopulation(countryObj.population.toString())}</li>
     <li class="country-info__other-item"><span class="country-info__other-title">Languages:</span>
     ${[...Object.values(countryObj.languages)].join(', ')}</li>
   </ul>`;
+}
+
+function formatPopulation(popNo) {
+  let formatted = '';
+  let odd = '';
+  if (popNo.length % 3 !== 0) {
+    odd = popNo.slice(0, popNo.length % 3);
+    popNo = popNo.slice(popNo.length % 3, popNo.length);
+  }
+  for (let start = 0, end = 3; end <= popNo.length; start += 3, end += 3) {
+    formatted += ' ' + popNo.slice(start, end);
+  }
+
+  formatted = formatted.trim();
+
+  return (odd + ' ' + formatted).trim();
 }
