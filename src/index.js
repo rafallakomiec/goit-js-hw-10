@@ -87,7 +87,7 @@ function onListClick(event) {
 
   const selectedCountry = event.target.dataset.countryname;
   const index = retrievedCountries.findIndex(
-    elem => elem.name.official === selectedCountry
+    elem => elem.name.official.toString() === selectedCountry.toString()
   );
   displayCountry(retrievedCountries[index]);
 }
