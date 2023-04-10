@@ -17,7 +17,7 @@ function fetchCountries(name) {
       return response.json();
     })
     .catch(error => {
-      if (response.status === 404) {
+      if (error.message === 404) {
         Notify.failure('Oops, there is no country with that name');
         return null;
       }

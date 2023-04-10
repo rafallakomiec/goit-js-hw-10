@@ -11,6 +11,7 @@ const input = document.querySelector('#search-box');
 const list = document.querySelector('.country-list');
 const info = document.querySelector('.country-info');
 input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
+list.addEventListener('click', onListClick);
 
 function onInput() {
   list.innerHTML = '';
@@ -22,7 +23,7 @@ function onInput() {
 
   const nameInput = input.value.trim();
 
-  const promise = new Promise(resolve => {
+  return new Promise(resolve => {
     resolve(fetchCountries(nameInput));
   })
     .then(result => {
@@ -43,13 +44,13 @@ function onInput() {
     })
     .then(dataObjArray => {
       const fixateOnOne = dataObjArray.some(
-        elem => elem.name.common === nameInput
+        elem => elem.name.common.toLowerCase() === nameInput.toLowerCase()
       );
       if (dataObjArray.length === 1 || fixateOnOne === true) {
         let countryObj = {};
         if (fixateOnOne === true) {
           const index = dataObjArray.findIndex(
-            elem => elem.name.common === nameInput
+            elem => elem.name.common.toLowerCase() === nameInput.toLowerCase()
           );
           countryObj = dataObjArray[index];
         } else {
@@ -67,15 +68,14 @@ function onInput() {
           'beforeend',
           `<li class="country-list__item" data-countryName="
           ${countryObj.name.official}
-          "><img class="country-list_img" src="
+          "><a href="#" class="country-list__link"><img class="country-list_img" src="
           ${countryObj.flags.svg}
           " alt="${countryObj.flags.alt}" data-countryName="
           ${countryObj.name.official}
-          " />${countryObj.name.official}</li>`
+          " />${countryObj.name.official}</a></li>`
         );
       }
       retrievedCountries = dataObjArray;
-      list.addEventListener('click', onListClick);
     })
     .catch(notice => {
       Notify.info(notice.message);
@@ -83,7 +83,7 @@ function onInput() {
 }
 
 function onListClick(event) {
-  if (event.target.nodeName !== 'li' || event.target.nodeName !== 'img') {
+  if (event.target.nodeName !== 'A' || event.target.nodeName !== 'IMG') {
     return;
   }
 
