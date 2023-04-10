@@ -65,8 +65,8 @@ function onInput() {
           `<li class="country-list__item" data-countryName="
           ${countryObj.name.official}
           "><img class="country-list_img" src="
-          ${countryObj.flags}
-          " alt="Country flag" data-countryName="
+          ${countryObj.flags.svg}
+          " alt="${countryObj.flags.alt}" data-countryName="
           ${countryObj.name.official}
           " />${countryObj.name.official}</li>`
         );
@@ -92,17 +92,15 @@ function onListClick(event) {
 
 function displayCountry(countryObj) {
   info.innerHTML = `<img class="country-info__img" src="${
-    countryObj.flags
-  }" alt="Country flag" />
+    countryObj.flags.svg
+  }" alt="${countryObj.flags.alt}" />
     <h2 class="country-info__name>${countryObj.name.official}</h2>
     <ul class="country-info__other">
-    <li class="country-info__other-item"><span class="country-info__other-title">Capital:</span>${
-      countryObj.capital
-    }</li>
-    <li class="country-info__other-item"><span class="country-info__other-title">Population:</span>${
-      countryObj.population
-    }</li>
+    <li class="country-info__other-item"><span class="country-info__other-title">Capital:</span>${countryObj.capital.join(
+      ', '
+    )}</li>
+    <li class="country-info__other-item"><span class="country-info__other-title">Population:</span>${countryObj.population.toString()}</li>
     <li class="country-info__other-item"><span class="country-info__other-title">Languages:</span>
-    ${countryObj.languages.join(', ')}</li>
+    ${Array.prototype.join.call(countryObj.languages, ', ')}</li>
   </ul>`;
 }

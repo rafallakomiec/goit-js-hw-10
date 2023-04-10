@@ -3,6 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 
 function fetchCountries(name) {
+  console.log('fetching...');
   const searchParams = new URLSearchParams({
     fields: 'name,capital,population,flags,languages',
   });
