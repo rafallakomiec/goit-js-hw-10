@@ -68,14 +68,14 @@ function onInput() {
           'beforeend',
           `<li class="country-list__item" data-countryName="
           ${countryObj.name.official}
-          "><a href="#" class="country-list__link"><img class="country-list_img" src="
+          "><img class="country-list_img" src="
           ${countryObj.flags.svg}
           " alt="${countryObj.flags.alt}" data-countryName="
           ${countryObj.name.official}
-          " />${countryObj.name.official}</a></li>`
+          " />${countryObj.name.official}</li>`
         );
       }
-      retrievedCountries = dataObjArray;
+      retrievedCountries = [...dataObjArray];
     })
     .catch(notice => {
       Notify.info(notice.message);
@@ -83,8 +83,7 @@ function onInput() {
 }
 
 function onListClick(event) {
-  event.preventDefault();
-  if (event.target.nodeName !== 'A' || event.target.nodeName !== 'IMG') {
+  if (event.target.nodeName !== 'LI' || event.target.nodeName !== 'IMG') {
     return;
   }
 
