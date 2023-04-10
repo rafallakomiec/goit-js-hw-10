@@ -43,13 +43,13 @@ function onInput() {
     })
     .then(dataObjArray => {
       const fixateOnOne = dataObjArray.some(
-        elem => elem.name.official === nameInput
+        elem => elem.name.common === nameInput
       );
       if (dataObjArray.length === 1 || fixateOnOne === true) {
         let countryObj = {};
         if (fixateOnOne === true) {
           const index = dataObjArray.findIndex(
-            elem => elem.name.official === nameInput
+            elem => elem.name.common === nameInput
           );
           countryObj = dataObjArray[index];
         } else {
@@ -78,12 +78,12 @@ function onInput() {
       list.addEventListener('click', onListClick);
     })
     .catch(notice => {
-      Notify.info(notice);
+      Notify.info(notice.message);
     });
 }
 
 function onListClick(event) {
-  if (event.target.nodeName !== 'LI' || event.target.nodeName !== 'IMG') {
+  if (event.target.nodeName !== 'li' || event.target.nodeName !== 'img') {
     return;
   }
 

@@ -21,7 +21,7 @@ function fetchCountries(name) {
         Notify.failure('Oops, there is no country with that name');
         return null;
       }
-      Notify.failure(error);
+      Notify.failure(error.message);
       return null;
     });
 }
