@@ -66,13 +66,11 @@ function onInput() {
       for (const countryObj of dataObjArray) {
         list.insertAdjacentHTML(
           'beforeend',
-          `<li class="country-list__item" data-countryName="
-          ${countryObj.name.official}
-          "><img class="country-list_img" src="
+          `<li class="country-list__item" data-countryName="${countryObj.name.official}"
+          ><img class="country-list_img" src="
           ${countryObj.flags.svg}
-          " alt="${countryObj.flags.alt}" data-countryName="
-          ${countryObj.name.official}
-          " />${countryObj.name.official}</li>`
+          " alt="${countryObj.flags.alt}" data-countryName="${countryObj.name.official}"
+           />${countryObj.name.official}</li>`
         );
       }
       retrievedCountries = [...dataObjArray];
