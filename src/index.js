@@ -83,6 +83,7 @@ function onInput() {
 }
 
 function onListClick(event) {
+  event.preventDefault();
   if (event.target.nodeName !== 'A' || event.target.nodeName !== 'IMG') {
     return;
   }
