@@ -7,21 +7,25 @@ function fetchCountries(name) {
     fields: 'name,capital,population,flags,languages',
   });
 
-  return fetch(
-    `https://restcountries.com/v3.1/name/${name.toString()}?${searchParams.toString()}`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .catch(error => {
-      if (response.status === 404) {
-        Notify.failure('Oops, there is no country with that name');
+  return new Promise(resolve => {
+    fetch(
+      `https://restcountries.com/v3.1/name/${name.toString()}?${searchParams.toString()}`
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        resolve(response.json());
+      })
+      .catch(error => {
+        if (response.status === 404) {
+          Notify.failure('Oops, there is no country with that name');
+          return null;
+        }
+        Notify.failure(error);
         return null;
-      }
-      Notify.failure(error);
-      return null;
-    });
+      });
+  }).then(response => {
+    return response;
+  });
 }
