@@ -11,7 +11,6 @@ const input = document.querySelector('#search-box');
 const list = document.querySelector('.country-list');
 const info = document.querySelector('.country-info');
 input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
-list.addEventListener('click', onListClick);
 
 function onInput() {
   list.innerHTML = '';
@@ -76,6 +75,7 @@ function onInput() {
         );
       }
       retrievedCountries = dataObjArray;
+      list.addEventListener('click', onListClick);
     })
     .catch(notice => {
       Notify.info(notice);
