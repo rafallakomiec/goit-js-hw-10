@@ -23,21 +23,25 @@ function onInput() {
 
   const nameInput = input.value.trim();
 
-  return new Promise((resolve, reject) => {
-    const result = fetchCountries(nameInput);
-    if (
-      typeof result === 'object' &&
-      result !== null &&
-      Array.isArray(result)
-    ) {
-      if (result.length > 10) {
-        reject('Too many matches found. Please enter a more specific name.');
-      }
-      resolve(result);
-    } else {
-      reject('Try searching again...');
-    }
+  const promise = new Promise(resolve => {
+    resolve(fetchCountries(nameInput));
   })
+    .then(result => {
+      if (
+        typeof result === 'object' &&
+        result !== null &&
+        Array.isArray(result)
+      ) {
+        if (result.length > 10) {
+          throw new Error(
+            'Too many matches found. Please enter a more specific name.'
+          );
+        }
+        return result;
+      } else {
+        throw new Error('Try searching again...');
+      }
+    })
     .then(dataObjArray => {
       const fixateOnOne = dataObjArray.some(
         elem => elem.name.official === nameInput
@@ -96,10 +100,10 @@ function displayCountry(countryObj) {
   }" alt="${countryObj.flags.alt}" />
     <h2 class="country-info__name>${countryObj.name.official}</h2>
     <ul class="country-info__other">
-    <li class="country-info__other-item"><span class="country-info__other-title">Capital:</span>${countryObj.capital.join(
-      ', '
-    )}</li>
-    <li class="country-info__other-item"><span class="country-info__other-title">Population:</span>${countryObj.population.toString()}</li>
+    <li class="country-info__other-item"><span class="country-info__other-title">
+    Capital:</span>${countryObj.capital.join(', ')}</li>
+    <li class="country-info__other-item"><span class="country-info__other-title">
+    Population:</span>${countryObj.population.toString()}</li>
     <li class="country-info__other-item"><span class="country-info__other-title">Languages:</span>
     ${Array.prototype.join.call(countryObj.languages, ', ')}</li>
   </ul>`;
