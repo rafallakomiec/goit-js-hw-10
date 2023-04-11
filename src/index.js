@@ -17,11 +17,12 @@ function onInput() {
   list.innerHTML = '';
   info.innerHTML = '';
 
-  if (input.value === '') {
+  const nameInput = input.value.trim();
+  input.value = nameInput;
+
+  if (nameInput === '') {
     return;
   }
-
-  const nameInput = input.value.trim();
 
   return new Promise(resolve => {
     resolve(fetchCountries(nameInput));

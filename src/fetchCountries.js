@@ -3,12 +3,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 
 function fetchCountries(name) {
-  const searchParams = new URLSearchParams({
-    fields: 'name,capital,population,flags,languages',
-  });
+  const searchParams = 'name,capital,population,flags,languages';
 
   return fetch(
-    `https://restcountries.com/v3.1/name/${name.toString()}?${searchParams.toString()}`
+    `https://restcountries.com/v3.1/name/${name.toString()}?${searchParams}`
   )
     .then(response => {
       if (!response.ok) {
